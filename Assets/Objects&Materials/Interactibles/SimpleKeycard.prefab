@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8310594923322160312}
   - component: {fileID: 4970550775551310621}
   - component: {fileID: 7142153556069961687}
+  - component: {fileID: 5664775031957421013}
   m_Layer: 0
   m_Name: SimpleKeycard
   m_TagString: Untagged
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5664775031957421013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8655631106444914178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac94afe8ba462349b069a02f29f0f8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tickSource: {fileID: 0}
