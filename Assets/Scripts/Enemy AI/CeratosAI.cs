@@ -1,0 +1,116 @@
+// changes speed and does it by an angle
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class CeratosAI : MonoBehaviour
+{
+    public NavMeshAgent agent;
+    public float walkSpeed, runSpeed;
+
+    // for patrolling
+    public Transform[] waypoints;
+    int waypointIndex;
+    Vector3 target;
+    
+    // for chasing player
+    public Transform player;
+    public LayerMask whatIsPlayer;
+
+    // checks if enemy is aware of player
+    //public bool awareOfPlayer { get; private set;}
+    public float sightRange, viewAngle;
+    public bool playerInSightRange;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = walkSpeed;
+        updateWaypointDestination();
+    }
+
+    private void Awake() {
+        // sets player to player object in game
+        player = GameObject.Find("Player").transform;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
+        environmentView();
+
+        if(playerInSightRange) {
+            chasePlayer();
+        } else {
+            patroll();
+        }
+
+        /*if(Vector3.Distance(transform.position, target) < 1) {
+            iterateWaypointIndex();
+            updateWaypointDestination();
+        }*/
+    }
+
+    public void environmentView() {
+        // creates an imaginary sphere around the enemy so that it can detect the player when it is near the view radius, returns an array of all the colliders that are overlapping
+        Collider[] enemySphere = Physics.OverlapSphere(transform.position, sightRange, whatIsPlayer);
+
+        for (int i = 0; i < enemySphere.Length; i++) {
+            player = enemySphere[i].transform;
+            // calculates how far awya the player is and in what direction, then sets it to dirToPlayer
+            Vector3 dirToPlayer = (player.position - transform.position).normalized;
+
+            // if the angle between the direction to the player and the enemy's forward vector is less than the set view angle then it sets playerInSightRanger to true
+            if (Vector3.Angle(transform.forward, dirToPlayer) < viewAngle) {
+               playerInSightRange = playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            }
+        }
+    }
+
+    // chases player once it sees it
+    public void chasePlayer() {
+        agent.speed = runSpeed;
+        agent.SetDestination(player.position);
+
+        // checks if the player is within sight range
+        if (Vector3.Distance(transform.position, player.position) > sightRange) {
+                playerInSightRange = false;
+                agent.speed = walkSpeed;
+                iterateWaypointIndex();
+                updateWaypointDestination();
+                //patroll();
+            }
+    }
+
+    public void patroll() {
+
+        if(Vector3.Distance(transform.position, target) < 1) {
+            iterateWaypointIndex();
+            updateWaypointDestination();
+        }
+    }
+
+    public void updateWaypointDestination() {
+        target = waypoints[waypointIndex].position;
+        agent.SetDestination(target);
+
+    }
+
+    public void stoppped() {
+        agent.isStopped = true;
+        agent.speed = 0;
+    }
+
+    public void iterateWaypointIndex() {
+        waypointIndex++;
+
+        if(waypointIndex == waypoints.Length) {
+            waypointIndex = 0;
+        }
+    }
+}
