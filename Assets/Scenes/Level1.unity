@@ -834,8 +834,8 @@ GameObject:
   - component: {fileID: 43577541}
   - component: {fileID: 43577539}
   - component: {fileID: 43577542}
-  m_Layer: 0
-  m_Name: XR Origin
+  m_Layer: 3
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7095,6 +7095,8 @@ MonoBehaviour:
   agent: {fileID: 100065043}
   walkSpeed: 3
   runSpeed: 4
+  isNotFrozen: 1
+  actionReference: {fileID: 6944300520307318817, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   waypoints:
   - {fileID: 564028456}
   - {fileID: 1453663663}
@@ -9163,7 +9165,7 @@ GameObject:
   - component: {fileID: 213126906}
   - component: {fileID: 213126905}
   - component: {fileID: 213126904}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -12765,7 +12767,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh26946
+  m_Name: pb_Mesh26892
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13453,7 +13455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &515915984
 Transform:
   m_ObjectHideFlags: 0
@@ -35571,7 +35573,7 @@ GameObject:
   - component: {fileID: 941009082}
   - component: {fileID: 941009081}
   - component: {fileID: 941009083}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftHand Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43458,7 +43460,7 @@ GameObject:
   - component: {fileID: 1452645528}
   - component: {fileID: 1452645527}
   - component: {fileID: 1452645529}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightHand Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44617,7 +44619,7 @@ GameObject:
   - component: {fileID: 1479382904}
   - component: {fileID: 1479382903}
   - component: {fileID: 1479382902}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightHand Ray Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48999,7 +49001,7 @@ GameObject:
   - component: {fileID: 1670227459}
   - component: {fileID: 1670227458}
   - component: {fileID: 1670227457}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftHand Ray Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50455,7 +50457,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1756421044}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Camera Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55042,7 +55044,7 @@ GameObject:
   - component: {fileID: 2043233035}
   - component: {fileID: 2043233034}
   - component: {fileID: 2043233033}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Watch
   m_TagString: Untagged
   m_Icon: {fileID: 0}

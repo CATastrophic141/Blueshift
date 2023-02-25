@@ -1073,6 +1073,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "XRI Freeze Time",
+            "id": "73dde870-4787-4b19-85b9-1654792175bf",
+            "actions": [
+                {
+                    "name": "Freeze Time",
+                    "type": "Button",
+                    "id": "f4591cfc-a385-4c33-8570-f777bbae5333",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e839a44c-ea1e-4ea7-9a26-ef7665692451",
+                    "path": "<XRController>{RightHand}/primaryTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Freeze Time",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

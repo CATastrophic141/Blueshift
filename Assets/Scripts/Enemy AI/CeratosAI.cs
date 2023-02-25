@@ -1,14 +1,20 @@
-// changes speed and does it by an angle
+//unity// changes speed and does it by an angle
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class CeratosAI : MonoBehaviour
 {
     public NavMeshAgent agent;
     public float walkSpeed, runSpeed;
+
+    // for freezing time
+    public bool isNotFrozen = true;
+    int frozenTime = 0;
+    public InputActionReference actionReference = null;
 
     // for patrolling
     public Transform[] waypoints;
@@ -35,6 +41,9 @@ public class CeratosAI : MonoBehaviour
     private void Awake() {
         // sets player to player object in game
         player = GameObject.Find("Player").transform;
+
+        // assign a toggle for freezing time
+        actionReference.action.performed += Toggle;
     }
 
     // Update is called once per frame
@@ -42,13 +51,34 @@ public class CeratosAI : MonoBehaviour
     {
         //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
-        environmentView();
+        if (isNotFrozen) {
+            environmentView();
 
-        if(playerInSightRange) {
-            chasePlayer();
-        } else {
-            patroll();
+            if (playerInSightRange)
+            {
+                chasePlayer();
+            }
+            else
+            {
+                patroll();
+            }
         }
+
+        // The entity is frozen. Wait for it to time out.
+        else {
+
+            // Wait
+            frozenTime++;
+            Debug.Log(frozenTime);
+
+            // 5 seconds pass. Unfreeze the monster
+            if(frozenTime >= 300) {
+                frozenTime = 0;
+                isNotFrozen = true;
+            }
+        }
+
+        
 
         /*if(Vector3.Distance(transform.position, target) < 1) {
             iterateWaypointIndex();
@@ -113,4 +143,11 @@ public class CeratosAI : MonoBehaviour
             waypointIndex = 0;
         }
     }
+
+    // call the freeze time mechanic
+    public void Toggle(InputAction.CallbackContext context) {
+        isNotFrozen = false;
+        Debug.Log("Frozen");
+    }
+
 }
