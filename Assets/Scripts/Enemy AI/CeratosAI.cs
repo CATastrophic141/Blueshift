@@ -20,7 +20,7 @@ public class CeratosAI : MonoBehaviour
     public Transform[] waypoints;
     int waypointIndex;
     Vector3 target;
-    
+
     // for chasing player
     public Transform player;
     public LayerMask whatIsPlayer;
@@ -38,12 +38,18 @@ public class CeratosAI : MonoBehaviour
         updateWaypointDestination();
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         // sets player to player object in game
         player = GameObject.Find("Player").transform;
 
         // assign a toggle for freezing time
-        actionReference.action.performed += Toggle;
+        actionReference.action.started += FreezeTime;
+    }
+
+    private void OnDestroy()
+    {
+        actionReference.action.started -= FreezeTime;
     }
 
     // Update is called once per frame
@@ -51,7 +57,8 @@ public class CeratosAI : MonoBehaviour
     {
         //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
-        if (isNotFrozen) {
+        if (isNotFrozen)
+        {
             environmentView();
 
             if (playerInSightRange)
@@ -65,20 +72,25 @@ public class CeratosAI : MonoBehaviour
         }
 
         // The entity is frozen. Wait for it to time out.
-        else {
+        else
+        {
 
             // Wait
             frozenTime++;
-            Debug.Log(frozenTime);
 
             // 5 seconds pass. Unfreeze the monster
-            if(frozenTime >= 300) {
+            if (frozenTime >= 300)
+            {
                 frozenTime = 0;
                 isNotFrozen = true;
+
+                agent.isStopped = false;
+                agent.speed = walkSpeed;
+                updateWaypointDestination();
             }
         }
 
-        
+
 
         /*if(Vector3.Distance(transform.position, target) < 1) {
             iterateWaypointIndex();
@@ -86,68 +98,81 @@ public class CeratosAI : MonoBehaviour
         }*/
     }
 
-    public void environmentView() {
+    public void environmentView()
+    {
         // creates an imaginary sphere around the enemy so that it can detect the player when it is near the view radius, returns an array of all the colliders that are overlapping
         Collider[] enemySphere = Physics.OverlapSphere(transform.position, sightRange, whatIsPlayer);
 
-        for (int i = 0; i < enemySphere.Length; i++) {
+        for (int i = 0; i < enemySphere.Length; i++)
+        {
             player = enemySphere[i].transform;
             // calculates how far awya the player is and in what direction, then sets it to dirToPlayer
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
 
             // if the angle between the direction to the player and the enemy's forward vector is less than the set view angle then it sets playerInSightRanger to true
-            if (Vector3.Angle(transform.forward, dirToPlayer) < viewAngle) {
-               playerInSightRange = playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            if (Vector3.Angle(transform.forward, dirToPlayer) < viewAngle)
+            {
+                playerInSightRange = playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             }
         }
     }
 
     // chases player once it sees it
-    public void chasePlayer() {
+    public void chasePlayer()
+    {
         agent.speed = runSpeed;
         agent.SetDestination(player.position);
 
         // checks if the player is within sight range
-        if (Vector3.Distance(transform.position, player.position) > sightRange) {
-                playerInSightRange = false;
-                agent.speed = walkSpeed;
-                iterateWaypointIndex();
-                updateWaypointDestination();
-                //patroll();
-            }
+        if (Vector3.Distance(transform.position, player.position) > sightRange)
+        {
+            playerInSightRange = false;
+            agent.speed = walkSpeed;
+            iterateWaypointIndex();
+            updateWaypointDestination();
+            //patroll();
+        }
     }
 
-    public void patroll() {
+    public void patroll()
+    {
 
-        if(Vector3.Distance(transform.position, target) < 1) {
+        if (Vector3.Distance(transform.position, target) < 1)
+        {
             iterateWaypointIndex();
             updateWaypointDestination();
         }
     }
 
-    public void updateWaypointDestination() {
+    public void updateWaypointDestination()
+    {
         target = waypoints[waypointIndex].position;
         agent.SetDestination(target);
 
     }
 
-    public void stoppped() {
+    public void stoppped()
+    {
         agent.isStopped = true;
         agent.speed = 0;
     }
 
-    public void iterateWaypointIndex() {
+    public void iterateWaypointIndex()
+    {
         waypointIndex++;
 
-        if(waypointIndex == waypoints.Length) {
+        if (waypointIndex == waypoints.Length)
+        {
             waypointIndex = 0;
         }
     }
 
     // call the freeze time mechanic
-    public void Toggle(InputAction.CallbackContext context) {
+    public void FreezeTime(InputAction.CallbackContext context)
+    {
         isNotFrozen = false;
         Debug.Log("Frozen");
+        stoppped();
     }
 
 }
