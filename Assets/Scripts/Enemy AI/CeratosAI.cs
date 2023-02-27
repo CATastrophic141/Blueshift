@@ -12,9 +12,12 @@ public class CeratosAI : MonoBehaviour
     public float walkSpeed, runSpeed;
 
     // for freezing time
-    public bool isNotFrozen = true;
+    public bool timeIsNotFrozen = true;
     int frozenTime = 0;
     public InputActionReference actionReference = null;
+
+    // for passing by player while hiding
+    public bool playerIsNotHiding = true;
 
     // for patrolling
     public Transform[] waypoints;
@@ -57,11 +60,11 @@ public class CeratosAI : MonoBehaviour
     {
         //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
-        if (isNotFrozen)
+        if (timeIsNotFrozen)
         {
             environmentView();
 
-            if (playerInSightRange)
+            if (playerInSightRange && playerIsNotHiding)
             {
                 chasePlayer();
             }
@@ -82,7 +85,7 @@ public class CeratosAI : MonoBehaviour
             if (frozenTime >= 300)
             {
                 frozenTime = 0;
-                isNotFrozen = true;
+                timeIsNotFrozen = true;
 
                 agent.isStopped = false;
                 agent.speed = walkSpeed;
@@ -170,9 +173,20 @@ public class CeratosAI : MonoBehaviour
     // call the freeze time mechanic
     public void FreezeTime(InputAction.CallbackContext context)
     {
-        isNotFrozen = false;
+        timeIsNotFrozen = false;
         Debug.Log("Frozen");
         stoppped();
+    }
+
+    // change the hiding bool depending on the state of the player
+    public void playerEnterHide()
+    {
+        playerIsNotHiding = false;
+    }
+
+    public void playerLeaveHide()
+    {
+        playerIsNotHiding = true;
     }
 
 }
