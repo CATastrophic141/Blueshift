@@ -16,10 +16,24 @@ public class LevelLoader : MonoBehaviour
         Debug.Log("Loading scene index " + SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void ReloadCurrentLevel()
+    {
+        //Coroutine required for transition delay
+        StartCoroutine(ReloadLevel()); //Uses IEnumerator LoadLEvel function via coroutine
+        Debug.Log("Loading scene index " + SceneManager.GetActiveScene().buildIndex);
+    }
+
     IEnumerator LoadLevel(int levelIndex)
     {
         animator.SetTrigger("TransitionLevel"); //Sets animator trigger value to true, plays animation
         yield return new WaitForSeconds(transitionTime); //Delays transision so that the scene loading happens in the animation
         SceneManager.LoadScene(levelIndex); //Loads scene
+    }
+
+    IEnumerator ReloadLevel()
+    {
+        animator.SetTrigger("DeathReset"); //Sets animator trigger value to true, plays animation
+        yield return new WaitForSeconds(transitionTime); //Delays transision so that the scene loading happens in the animation
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //Loads scene
     }
 }
