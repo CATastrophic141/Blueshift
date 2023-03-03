@@ -18,7 +18,6 @@ public class CeratosAI : MonoBehaviour
 
     // for passing by player while hiding
     public bool playerIsNotHiding = true;
-    private int tick;
 
     // for patrolling
     public Transform[] waypoints;
@@ -59,7 +58,7 @@ public class CeratosAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tick++;
+        //tick++;
         //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
         if (timeIsNotFrozen)
@@ -68,12 +67,12 @@ public class CeratosAI : MonoBehaviour
 
             if (playerInSightRange && playerIsNotHiding)
             {
-                Debug.Log("Chasing " + tick);
+                //Debug.Log("Chasing");
                 chasePlayer();
             }
             else
             {
-                Debug.Log("Patrolling " + tick);
+                //Debug.Log("Patrolling");
                 patroll();
             }
         }

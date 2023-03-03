@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LockerManager : MonoBehaviour
+public class HidingManager : MonoBehaviour
 {
 
     // Create a copy of the AI script
     public UnityEvent hide;
     public UnityEvent leaveHide;
-    private int tick = 0;
 
+    // Debugging
+    /*
+    private int tick = 0;
     void Update()
     {
         tick++;
     }
+    */
 
     // Player hides
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log(tick + " Enter");
+        Debug.Log("Enter");
         hide.Invoke();
     }
 
     // Player leaves hiding location
     void OnTriggerExit(Collider col)
     {
-        Debug.Log(tick + " Exit");
+        Debug.Log("Exit");
         leaveHide.Invoke();
     }
 }
