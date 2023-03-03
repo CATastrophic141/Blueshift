@@ -25,14 +25,14 @@ public class LevelLoader : MonoBehaviour
 
     IEnumerator LoadLevel(int levelIndex)
     {
-        animator.SetTrigger("TransitionLevel"); //Sets animator trigger value to true, plays animation
+        animator.SetTrigger("CompleteLevel"); //Sets animator trigger value to true, plays animation
         yield return new WaitForSeconds(transitionTime); //Delays transision so that the scene loading happens in the animation
         SceneManager.LoadScene(levelIndex); //Loads scene
     }
 
     IEnumerator ReloadLevel()
     {
-        animator.SetTrigger("DeathReset"); //Sets animator trigger value to true, plays animation
+        animator.SetTrigger("FailLevel"); //Sets animator trigger value to true, plays animation
         yield return new WaitForSeconds(transitionTime); //Delays transision so that the scene loading happens in the animation
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //Loads scene
     }
