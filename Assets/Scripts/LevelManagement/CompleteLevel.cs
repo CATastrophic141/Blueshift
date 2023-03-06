@@ -8,6 +8,7 @@ public class CompleteLevel : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Next Level");
         script.LoadNextLevel();
     }
 }
