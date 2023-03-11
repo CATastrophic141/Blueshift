@@ -31,8 +31,8 @@ public class CeratosAI : MonoBehaviour
 
     // checks if enemy is aware of player
     //public bool awareOfPlayer { get; private set;}
-    public float sightRange, viewAngle;
-    public bool playerInSightRange;
+    public float sightRange, viewAngle, hearRange;
+    public bool playerInSightRange, playerInHearRange;
 
     // Start is called before the first frame update
     void Start()
@@ -66,7 +66,7 @@ public class CeratosAI : MonoBehaviour
         {
             environmentView();
 
-            if (playerInSightRange && playerIsNotHiding)
+            if ((playerInSightRange && playerIsNotHiding) || (playerInHearRange && playerIsNotHiding))
             {
                 //Debug.Log("Chasing");
                 chasePlayer();
@@ -113,13 +113,22 @@ public class CeratosAI : MonoBehaviour
         for (int i = 0; i < enemySphere.Length; i++)
         {
             player = enemySphere[i].transform;
+
             // calculates how far awya the player is and in what direction, then sets it to dirToPlayer
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
+
+            // saves player's old position
+            Vector3 playerOldPostion = player.position;
 
             // if the angle between the direction to the player and the enemy's forward vector is less than the set view angle then it sets playerInSightRanger to true
             if (Vector3.Angle(transform.forward, dirToPlayer) < viewAngle)
             {
-                playerInSightRange = playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            }
+
+            if ((playerOldPostion != player.position) && (Vector3.Angle(transform.forward, dirToPlayer) < hearRange/2))
+            {
+                playerInHearRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             }
         }
     }
