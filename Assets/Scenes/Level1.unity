@@ -7472,13 +7472,14 @@ MonoBehaviour:
   - {fileID: 40506430}
   - {fileID: 1120518269}
   - {fileID: 83731341}
+  numberOfWaypoints: 8
   player: {fileID: 2022942001}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8
   sightRange: 15
   viewAngle: 90
-  hearRange: 35
+  hearRange: 50
   playerInSightRange: 0
   playerInHearRange: 0
 --- !u!195 &100065043

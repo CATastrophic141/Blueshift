@@ -23,6 +23,7 @@ public class CeratosAI : MonoBehaviour
     // for patrolling
     public Transform[] waypoints;
     int waypointIndex;
+    public int numberOfWaypoints;
     Vector3 target;
 
     // for chasing player
@@ -125,6 +126,7 @@ public class CeratosAI : MonoBehaviour
                 playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             }
 
+            // if the distance from the monster and the player is less than the set hearing range then it sets playerInHearRnage to true
             if ((Vector3.Distance(transform.position, player.position) < hearRange))
             {
                 playerInHearRange = Physics.CheckSphere(transform.position, hearRange, whatIsPlayer);
@@ -151,6 +153,7 @@ public class CeratosAI : MonoBehaviour
             }
         }
 
+        // checks if the player is within hearing range
         if (playerInHearRange)
         {
             if (Vector3.Distance(transform.position, player.position) > hearRange)
@@ -189,7 +192,8 @@ public class CeratosAI : MonoBehaviour
 
     public void iterateWaypointIndex()
     {
-        waypointIndex++;
+        //waypointIndex++;
+        waypointIndex = Random.Range(1,numberOfWaypoints);
 
         if (waypointIndex == waypoints.Length)
         {
