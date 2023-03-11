@@ -109,6 +109,8 @@ public class CeratosAI : MonoBehaviour
     {
         // creates an imaginary sphere around the enemy so that it can detect the player when it is near the view radius, returns an array of all the colliders that are overlapping
         Collider[] enemySphere = Physics.OverlapSphere(transform.position, sightRange, whatIsPlayer);
+        // saves player's old position
+        //Vector3 playerOldPostion = player.position;
 
         for (int i = 0; i < enemySphere.Length; i++)
         {
@@ -117,18 +119,15 @@ public class CeratosAI : MonoBehaviour
             // calculates how far awya the player is and in what direction, then sets it to dirToPlayer
             Vector3 dirToPlayer = (player.position - transform.position).normalized;
 
-            // saves player's old position
-            Vector3 playerOldPostion = player.position;
-
             // if the angle between the direction to the player and the enemy's forward vector is less than the set view angle then it sets playerInSightRanger to true
             if (Vector3.Angle(transform.forward, dirToPlayer) < viewAngle)
             {
                 playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             }
 
-            if ((playerOldPostion != player.position) && (Vector3.Angle(transform.forward, dirToPlayer) < hearRange/2))
+            if ((Vector3.Distance(transform.position, player.position) < hearRange))
             {
-                playerInHearRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+                playerInHearRange = Physics.CheckSphere(transform.position, hearRange, whatIsPlayer);
             }
         }
     }
@@ -140,13 +139,28 @@ public class CeratosAI : MonoBehaviour
         agent.SetDestination(player.position);
 
         // checks if the player is within sight range
-        if (Vector3.Distance(transform.position, player.position) > sightRange)
+        if (playerInSightRange)
         {
-            playerInSightRange = false;
-            agent.speed = walkSpeed;
-            iterateWaypointIndex();
-            updateWaypointDestination();
-            //patroll();
+            if (Vector3.Distance(transform.position, player.position) > sightRange)
+            {
+                playerInSightRange = false;
+                agent.speed = walkSpeed;
+                iterateWaypointIndex();
+                updateWaypointDestination();
+                //patroll();
+            }
+        }
+
+        if (playerInHearRange)
+        {
+            if (Vector3.Distance(transform.position, player.position) > hearRange)
+            {
+                playerInHearRange = false;
+                agent.speed = walkSpeed;
+                iterateWaypointIndex();
+                updateWaypointDestination();
+                //patroll();
+            }
         }
     }
 

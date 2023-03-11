@@ -7478,7 +7478,7 @@ MonoBehaviour:
     m_Bits: 8
   sightRange: 15
   viewAngle: 90
-  hearRange: 30
+  hearRange: 35
   playerInSightRange: 0
   playerInHearRange: 0
 --- !u!195 &100065043
