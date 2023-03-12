@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Fade_Black
-  m_Shader: {fileID: 4800000, guid: f106b312b09aee84fa8a89377eac6e6a, type: 3}
+  m_Shader: {fileID: 4800000, guid: a9742945ace979d408adb4f142e4d64b, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _GLOSSYREFLECTIONS_OFF
