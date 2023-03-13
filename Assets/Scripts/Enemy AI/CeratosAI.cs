@@ -11,6 +11,9 @@ public class CeratosAI : MonoBehaviour
     public NavMeshAgent agent;
     public float walkSpeed, runSpeed;
 
+    // for animation alteration
+    Animator ceratosAnimation;
+
     // for freezing time
     public bool timeIsNotFrozen = true;
     int frozenTime = 0;
@@ -38,6 +41,10 @@ public class CeratosAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Start animation in undetected state
+        ceratosAnimation = gameObject.GetComponent<Animator>();
+        ceratosAnimation.SetBool("DetectedPlayer", false);
+
         agent = GetComponent<NavMeshAgent>();
         agent.speed = walkSpeed;
         updateWaypointDestination();
@@ -138,6 +145,7 @@ public class CeratosAI : MonoBehaviour
     public void chasePlayer()
     {
         agent.speed = runSpeed;
+        ceratosAnimation.SetBool("DetectedPlayer", true); //Begin running anim
         agent.SetDestination(player.position);
 
         // checks if the player is within sight range
@@ -146,6 +154,7 @@ public class CeratosAI : MonoBehaviour
             if (Vector3.Distance(transform.position, player.position) > sightRange)
             {
                 playerInSightRange = false;
+                ceratosAnimation.SetBool("DetectedPlayer", false); //Go back to walking
                 agent.speed = walkSpeed;
                 iterateWaypointIndex();
                 updateWaypointDestination();
@@ -159,6 +168,7 @@ public class CeratosAI : MonoBehaviour
             if (Vector3.Distance(transform.position, player.position) > hearRange)
             {
                 playerInHearRange = false;
+                ceratosAnimation.SetBool("DetectedPlayer", false); // Walk
                 agent.speed = walkSpeed;
                 iterateWaypointIndex();
                 updateWaypointDestination();
