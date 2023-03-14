@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
-public class LockerManager : MonoBehaviour
+public class BoxManager : MonoBehaviour
 {
-    
     // "Borrow" the player
     public GameObject player;
 
     // Player's parameters to disable while hiding
     [SerializeField] GameObject leftRay;
     [SerializeField] GameObject rightRay;
+    [SerializeField] GameObject height;
 
     // Current hiding status
     private bool isPlayerHiding;
@@ -32,6 +32,9 @@ public class LockerManager : MonoBehaviour
 
     // Trigger press action
     public InputActionReference actionReference = null;
+
+    // Lower the player's position in box
+    private Vector3 shift = new Vector3(0, 1.1f, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +61,9 @@ public class LockerManager : MonoBehaviour
         player.transform.position = enterPos;
         player.transform.eulerAngles = rotation;
 
+        // Lower the camera
+        height.transform.position -= shift;
+
         // Disable raycasts
         leftRay.SetActive(false);
         rightRay.SetActive(false);
@@ -82,6 +88,9 @@ public class LockerManager : MonoBehaviour
 
         // Adjust the position
         player.transform.position = exitPos;
+
+        // Fix the height
+        height.transform.position += shift;
 
         // Call event
         playerExitHide.Invoke();
