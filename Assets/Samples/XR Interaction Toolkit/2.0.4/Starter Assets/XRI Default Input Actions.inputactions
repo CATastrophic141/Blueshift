@@ -1101,6 +1101,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "XRI TriggerPress",
+            "id": "1b03b3bb-ddbf-4d4f-8be4-ed551d504f0d",
+            "actions": [
+                {
+                    "name": "LeaveHide",
+                    "type": "Button",
+                    "id": "63e7e91a-61ba-44ed-a0c7-724e3eb4f427",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0302f860-8472-4bfa-b618-478deb7b6b8b",
+                    "path": "<OculusTouchController>/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeaveHide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

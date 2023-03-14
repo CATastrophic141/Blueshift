@@ -94,7 +94,7 @@ public class CeratosAI : MonoBehaviour
             frozenTime++;
 
             // 5 seconds pass. Unfreeze the monster
-            if (frozenTime >= 300)
+            if (frozenTime >= 600)
             {
                 frozenTime = 0;
                 timeIsNotFrozen = true;
