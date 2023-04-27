@@ -25,6 +25,7 @@ Quick Outline			Chris Nolet		Extension Asset			https://assetstore.unity.com/pack
 Sci-fi GUI skin			3d.rina			Extension Asset			https://assetstore.unity.com/packages/2d/gui/sci-fi-gui-skin-15606					Original
 VR Real Clock			Zulubo			Extension Asset			https://assetstore.unity.com/packages/tools/particles-effects/vr-real-clock-76098			Modified
 Yughues Free Metal Materials	Nobiax / Yughues	Extension Asset			https://assetstore.unity.com/packages/2d/textures-materials/metals/yughues-free-metal-materials-12949	Original
+Keycard				Rylan Simpson		Custom Creation
 ```
 
 ## Additional Resources	[ Use / Authors ]
